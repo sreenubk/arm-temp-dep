@@ -1,0 +1,35 @@
+on: 
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'ARMTemplateParametersForFactory.json'
+name: Data Factory Deployment
+jobs:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
+
+        # Checkout code
+      - uses: actions/checkout@master
+
+        # Log into Azure
+      - uses: azure/login@v1
+        with:
+          # creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+        # Deploy ARM template
+      - name: Run ARM deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ././ARMTemplateForFactory.json
+          parameters: ././ARMTemplateParametersForFactory.json
+
+        # output containerName variable from template
+      # - run: echo ${{ steps.deploy.outputs.containerName }}
