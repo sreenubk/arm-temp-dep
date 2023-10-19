@@ -4,6 +4,9 @@ on:
       - 'master'
     paths:
       - 'ARMTemplateParametersForFactory.json'
+permissions:
+  id-token: write
+
 name: Data Factory Deployment
 jobs:
   build-and-deploy:
