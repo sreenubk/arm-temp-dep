@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "factoryName": {
-      "value": "ssp-etl-df"
+      "value": "ssp-etl-df-test"
     },
     "AzureBlobStorage1_connectionString": {
       "value": ""
